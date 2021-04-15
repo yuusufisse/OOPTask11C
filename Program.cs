@@ -9,9 +9,11 @@ namespace OOPTask11C
     {
         static void Main(string[] args)
         {
-            string path = @"C:\Users\Public\Json\client.json";
+            //string path = @"C:\Users\Public\Json\client.json";
             List<Client> clients = new List<Client>();
-            using(StreamReader streamReader=new StreamReader(path))
+            string path = Environment.CurrentDirectory.Replace(@"\bin\Debug\net5.0.", "").
+                Replace(@"\bin\Release\net5.0", "") + "\\";
+            using (StreamReader streamReader=new StreamReader(path + "client.json"))
             {
                 var jsonString = streamReader.ReadToEnd();
                 //Deserialization...
@@ -25,7 +27,7 @@ namespace OOPTask11C
             //One new client:
             clients.Add(new Client("Donald Duck", new DateTime(2021, 3, 29)));
             //Serializing...
-            using(StreamWriter streamWriter=new StreamWriter(path, false))
+            using(StreamWriter streamWriter=new StreamWriter(path + "client.json", false))
             {
                 string jsonData = JsonConvert.SerializeObject(clients);
                 streamWriter.Write(jsonData);
@@ -33,7 +35,7 @@ namespace OOPTask11C
             }
             //Did it go??
 
-            using (StreamReader streamReader = new StreamReader(path))
+            using (StreamReader streamReader = new StreamReader(path + "client.json"))
             {
                 var jsonString = streamReader.ReadToEnd();
                 //Deserialization...
